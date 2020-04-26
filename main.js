@@ -67,7 +67,6 @@ var app = http.createServer(function (request, response) {
         err,
         description
       ) {
-        console.log(queryData);
         var title = queryData.id;
         var list = render.listtag(filelist);
         var description = `
@@ -83,6 +82,7 @@ var app = http.createServer(function (request, response) {
         </form>
         `;
         var renderedPage = render.page(title, description, list, false);
+        console.log(renderedPage);
         response.writeHead(200);
         response.end(renderedPage);
       });
