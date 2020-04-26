@@ -4,6 +4,7 @@ var url = require("url");
 var qs = require("querystring");
 var render = require("./lib/renderer.js");
 var path = require("path");
+var sanitizeHTML = require("sanitize-html");
 
 //서버 만드는 부분인듯
 var app = http.createServer(function (request, response) {
