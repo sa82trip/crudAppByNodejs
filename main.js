@@ -3,6 +3,7 @@ var fs = require("fs");
 var url = require("url");
 var qs = require("querystring");
 var render = require("./lib/renderer.js");
+var path = require("path");
 
 //서버 만드는 부분인듯
 var app = http.createServer(function (request, response) {
@@ -26,7 +27,8 @@ var app = http.createServer(function (request, response) {
     } else {
       fs.readdir("./data", (error, filelist) => {
         var list = render.listtag(filelist);
-        fs.readFile(`./data/${queryData.id}`, "utf8", function (
+        var filteredQueryData = path.parse(queryData.id).base;
+        fs.readFile(`./data/${filteredQueryData}`, "utf8", function (
           err,
           description
         ) {
@@ -59,7 +61,11 @@ var app = http.createServer(function (request, response) {
     //post로 클라이언트부터 받은 정보를 처리하는 부분
   } else if (pathname === "/update") {
     fs.readdir("./data", (error, filelist) => {
-      fs.readFile(`data/${queryData.id}`, "utf8", function (err, description) {
+      var filteredQueryData = path.parse(queryData.id).base;
+      fs.readFile(`data/${filteredQueryData}`, "utf8", function (
+        err,
+        description
+      ) {
         console.log(queryData);
         var title = queryData.id;
         var list = render.listtag(filelist);
@@ -129,8 +135,10 @@ var app = http.createServer(function (request, response) {
     request.on("end", function () {
       var post = qs.parse(body);
       var id = post.id;
-      fs.unlink(`data/${id}`, (error) => {
-        console.log(`${id}file is deleted!!`);
+      var filteredQueryData = path.parse(queryData.id).base;
+
+      fs.unlink(`data/${filteredQueryData}`, (error) => {
+        console.log(`${ifilteredQueryDatad}file is deleted!!`);
         response.writeHead(302, {
           Location: `/`,
         });
