@@ -1,3 +1,3 @@
-# develop very fundamental app which can do CRUD with node js
+# basic CRUD with Nodejs
 
-it will be attached to mongoDB
+## 간단한 CRUD 
